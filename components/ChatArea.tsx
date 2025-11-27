@@ -41,13 +41,8 @@ export default function ChatArea({ messages, isLoading }: ChatAreaProps) {
           ))}
           
           {isLoading && (
-            <div className="flex gap-4">
-              <div className="w-8 h-8 rounded-sm flex-shrink-0 flex items-center justify-center bg-green-500">
-                <Bot className="w-5 h-5 text-white" />
-              </div>
-              <div className="flex items-center">
-                 <AITextLoading className="text-md text-white" />
-              </div>
+            <div className="flex gap-0">
+              <AITextLoading className="text-lg text-white" />
             </div>
           )}
         </div>
