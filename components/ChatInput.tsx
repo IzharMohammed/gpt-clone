@@ -174,7 +174,7 @@ export default function AI_Prompt() {
             <div className="flex h-14 items-center rounded-b-xl bg-[#2f2f2f]">
               <div className="absolute right-3 bottom-3 left-3 flex w-[calc(100%-24px)] items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <DropdownMenu>
+                  {/* <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
                         className="flex h-8 items-center gap-1 rounded-md pr-2 pl-1 text-xs hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 text-white"
@@ -207,7 +207,7 @@ export default function AI_Prompt() {
                         </AnimatePresence>
                       </Button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent
+                    {/* <DropdownMenuContent
                       className={cn(
                         "min-w-[10rem]",
                         "border-black/10 dark:border-white/10",
@@ -224,7 +224,6 @@ export default function AI_Prompt() {
                             {MODEL_ICONS[model] || (
                               <Bot className="h-4 w-4 opacity-50" />
                             )}{" "}
-                            {/* Use mapped SVG or fallback */}
                             <span>{model}</span>
                           </div>
                           {selectedModel === model && (
@@ -233,9 +232,9 @@ export default function AI_Prompt() {
                         </DropdownMenuItem>
                       ))}
                     </DropdownMenuContent>
-                  </DropdownMenu>
-                  <div className="mx-0.5 h-4 w-px bg-black/10 dark:bg-white/10" />
-                  <label
+                  </DropdownMenu> */}
+                  {/* <div className="mx-0.5 h-4 w-px bg-black/10 dark:bg-white/10" /> */}
+                  {/* <label
                     aria-label="Attach file"
                     className={cn(
                       "cursor-pointer rounded-lg bg-white/5 p-2",
@@ -245,7 +244,7 @@ export default function AI_Prompt() {
                   >
                     <input className="hidden" type="file" />
                     <Paperclip className="h-4 w-4 transition-colors" />
-                  </label>
+                  </label> */}
                 </div>
                 <button
                   aria-label="Send message"
