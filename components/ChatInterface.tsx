@@ -74,7 +74,7 @@ export default function ChatInterface() {
 
 
         {/* Chat Area */}
-        <ChatArea messages={messages} />
+        <ChatArea messages={messages} isLoading={isLoading} />
 
         {/* Input Area */}
         <ChatInput onSend={handleSend} isLoading={isLoading} />

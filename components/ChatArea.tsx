@@ -1,11 +1,13 @@
 import { Bot, User } from "lucide-react";
 import { Message } from "./ChatInterface";
+import AITextLoading from "./kokonutui/ai-text-loading";
 
 interface ChatAreaProps {
   messages: Message[];
+  isLoading?: boolean;
 }
 
-export default function ChatArea({ messages }: ChatAreaProps) {
+export default function ChatArea({ messages, isLoading }: ChatAreaProps) {
   return (
     <div className="flex-1 overflow-y-auto">
       {messages.length === 0 ? (
@@ -37,6 +39,17 @@ export default function ChatArea({ messages }: ChatAreaProps) {
               </div>
             </div>
           ))}
+          
+          {isLoading && (
+            <div className="flex gap-4">
+              <div className="w-8 h-8 rounded-sm flex-shrink-0 flex items-center justify-center bg-green-500">
+                <Bot className="w-5 h-5 text-white" />
+              </div>
+              <div className="flex items-center">
+                 <AITextLoading className="text-md text-white" />
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
