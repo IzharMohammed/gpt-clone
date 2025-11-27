@@ -145,26 +145,18 @@ export default function AI_Prompt() {
   };
 
   return (
-    <div className="w-4/6 py-4">
-      <div className="rounded-2xl bg-black/5 p-1.5 pt-4 dark:bg-white/5">
+    <div className="w-full max-w-3xl mx-auto px-4 py-4">
+      <div className="rounded-2xl bg-[#2f2f2f] p-1.5 pt-4">
         <div className="mx-2 mb-2.5 flex items-center gap-2">
           <div className="flex flex-1 items-center gap-2">
-            <Anthropic className="h-3.5 w-3.5 text-black dark:hidden" />
-            <AnthropicDark className="hidden h-3.5 w-3.5 dark:block" />
-            <h3 className="text-black text-xs tracking-tighter dark:text-white/90">
-              is free this weekend!
-            </h3>
           </div>
-          <p className="text-black text-xs tracking-tighter dark:text-white/90">
-            Ship Now!
-          </p>
         </div>
         <div className="relative">
           <div className="relative flex flex-col">
             <div className="overflow-y-auto" style={{ maxHeight: "400px" }}>
               <Textarea
                 className={cn(
-                  "w-full resize-none rounded-xl rounded-b-none border-none bg-black/5 px-4 py-3 placeholder:text-black/70 focus-visible:ring-0 focus-visible:ring-offset-0 dark:bg-white/5 dark:text-white dark:placeholder:text-white/70",
+                  "w-full resize-none rounded-xl rounded-b-none border-none bg-[#2f2f2f] px-4 py-3 placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 text-white",
                   "min-h-[72px]"
                 )}
                 id="ai-input-15"
@@ -179,13 +171,13 @@ export default function AI_Prompt() {
               />
             </div>
 
-            <div className="flex h-14 items-center rounded-b-xl bg-black/5 dark:bg-white/5">
+            <div className="flex h-14 items-center rounded-b-xl bg-[#2f2f2f]">
               <div className="absolute right-3 bottom-3 left-3 flex w-[calc(100%-24px)] items-center justify-between">
                 <div className="flex items-center gap-2">
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button
-                        className="flex h-8 items-center gap-1 rounded-md pr-2 pl-1 text-xs hover:bg-black/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 dark:text-white dark:hover:bg-white/10"
+                        className="flex h-8 items-center gap-1 rounded-md pr-2 pl-1 text-xs hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 text-white"
                         variant="ghost"
                       >
                         <AnimatePresence mode="wait">
@@ -246,9 +238,9 @@ export default function AI_Prompt() {
                   <label
                     aria-label="Attach file"
                     className={cn(
-                      "cursor-pointer rounded-lg bg-black/5 p-2 dark:bg-white/5",
-                      "hover:bg-black/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 dark:hover:bg-white/10",
-                      "text-black/40 hover:text-black dark:text-white/40 dark:hover:text-white"
+                      "cursor-pointer rounded-lg bg-white/5 p-2",
+                      "hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0",
+                      "text-white/40 hover:text-white"
                     )}
                   >
                     <input className="hidden" type="file" />
@@ -258,15 +250,15 @@ export default function AI_Prompt() {
                 <button
                   aria-label="Send message"
                   className={cn(
-                    "rounded-lg bg-black/5 p-2 dark:bg-white/5",
-                    "hover:bg-black/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0 dark:hover:bg-white/10"
+                    "rounded-lg bg-white/5 p-2",
+                    "hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0"
                   )}
                   disabled={!value.trim()}
                   type="button"
                 >
                   <ArrowRight
                     className={cn(
-                      "h-4 w-4 transition-opacity duration-200 dark:text-white",
+                      "h-4 w-4 transition-opacity duration-200 text-white",
                       value.trim() ? "opacity-100" : "opacity-30"
                     )}
                   />
