@@ -5,11 +5,14 @@ import { baseMessages } from "@/lib/constant";
 
 export async function POST(req: Request) {
     const { message } = await req.json();
+    console.log("message from frontend:-",message);
+    
     baseMessages.push({ role: 'user', content: message });
 
     const chatCompletion = await getGroqChatCompletion(baseMessages);
     const aiMessage = chatCompletion.choices[0].message;
-
+    console.log("ai message:-",aiMessage);
+    
     if (!aiMessage.content) {
         return NextResponse.json({ error: 'AI message content is missing' }, { status: 500 });
     }

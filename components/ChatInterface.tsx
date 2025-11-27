@@ -6,8 +6,48 @@ import Sidebar from "./Sidebar";
 import ChatArea from "./ChatArea";
 import ChatInput from "./ChatInput";
 
+export type Message = {
+  role: "user" | "assistant";
+  content: string;
+};
+
 export default function ChatInterface() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSend = async (content: string) => {
+    if (!content.trim()) return;
+
+    const userMessage: Message = { role: "user", content };
+    setMessages((prev) => [...prev, userMessage]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/chat/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message: content }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      const data = await response.json();
+      console.log("data from backend:-",data);
+      
+      const aiMessage: Message = { role: "assistant", content: data.message };
+      setMessages((prev) => [...prev, aiMessage]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      // Optionally handle error state here
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="flex h-screen bg-[#212121] text-gray-100 font-sans overflow-hidden">
@@ -39,10 +79,10 @@ export default function ChatInterface() {
 
 
         {/* Chat Area */}
-        <ChatArea />
+        <ChatArea messages={messages} />
 
         {/* Input Area */}
-        <ChatInput />
+        <ChatInput onSend={handleSend} isLoading={isLoading} />
       </div>
     </div>
   );

@@ -58,7 +58,12 @@ const OPENAI_SVG = (
   </div>
 );
 
-export default function AI_Prompt() {
+interface ChatInputProps {
+  onSend?: (content: string) => void;
+  isLoading?: boolean;
+}
+
+export default function AI_Prompt({ onSend, isLoading }: ChatInputProps) {
   const [value, setValue] = useState("");
   const { textareaRef, adjustHeight } = useAutoResizeTextarea({
     minHeight: 72,
@@ -136,11 +141,18 @@ export default function AI_Prompt() {
     "GPT-5-1": OPENAI_SVG,
   };
 
+  const handleSubmit = () => {
+    if (value.trim() && onSend && !isLoading) {
+      onSend(value);
+      setValue("");
+      adjustHeight(true);
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      setValue("");
-      adjustHeight(true);
+      handleSubmit();
     }
   };
 
@@ -168,6 +180,7 @@ export default function AI_Prompt() {
                 placeholder={"What can I do for you?"}
                 ref={textareaRef}
                 value={value}
+                disabled={isLoading}
               />
             </div>
 
@@ -252,8 +265,9 @@ export default function AI_Prompt() {
                     "rounded-lg bg-white/5 p-2",
                     "hover:bg-white/10 focus-visible:ring-1 focus-visible:ring-blue-500 focus-visible:ring-offset-0"
                   )}
-                  disabled={!value.trim()}
+                  disabled={!value.trim() || isLoading}
                   type="button"
+                  onClick={handleSubmit}
                 >
                   <ArrowRight
                     className={cn(
