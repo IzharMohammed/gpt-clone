@@ -5,40 +5,53 @@ import { baseMessages } from "@/lib/constant";
 
 export async function POST(req: Request) {
     const { message } = await req.json();
-    console.log("message from frontend:-",message);
-    
+    console.log("message from frontend:-", message);
+
     baseMessages.push({ role: 'user', content: message });
 
     const chatCompletion = await getGroqChatCompletion(baseMessages);
     const aiMessage = chatCompletion.choices[0].message;
-    console.log("ai message:-",aiMessage);
-    
-    if (!aiMessage.content) {
-        return NextResponse.json({ error: 'AI message content is missing' }, { status: 500 });
-    }
+    console.log("ai message:-", aiMessage);
 
-    baseMessages.push({ role: 'assistant', content: aiMessage.content });
+    baseMessages.push({ role: 'assistant', content: aiMessage.content, tool_calls: aiMessage.tool_calls });
 
-    if (aiMessage.content) {
-        return NextResponse.json({ message: aiMessage.content }, { status: 200 });
-    }
+    if (aiMessage.tool_calls) {
+        for (const toolCall of aiMessage.tool_calls) {
+            if (toolCall.function.name === "webSearch") {
+                const args = JSON.parse(toolCall.function.arguments);
+                console.log(`Tool call received: webSearch with args: ${JSON.stringify(args)}`);
 
-    if (!aiMessage.tool_calls) {
-        return NextResponse.json({ error: 'AI message tool calls is missing' }, { status: 500 });
-    }
+                let toolResult = "";
+                let attempts = 0;
+                const maxRetries = 3;
 
-    for (const toolCall of aiMessage.tool_calls) {
-        if (toolCall.function.name === "webSearch") {
-            const args = JSON.parse(toolCall.function.arguments);
-            console.log(`Tool call received: webSearch with args: ${JSON.stringify(args)}`);
-            const toolResult = await webSearch(args);
+                while (attempts < maxRetries) {
+                    try {
+                        toolResult = await webSearch(args);
+                        break; // Success, exit loop
+                    } catch (error) {
+                        attempts++;
+                        console.error(`webSearch failed (attempt ${attempts}/${maxRetries}):`, error);
+                        if (attempts === maxRetries) {
+                            toolResult = "Error: Failed to perform web search after multiple attempts.";
+                        }
+                    }
+                }
 
-            baseMessages.push({
-                tool_call_id: toolCall.id,
-                role: "tool",
-                content: toolResult,
-            });
+                baseMessages.push({
+                    tool_call_id: toolCall.id,
+                    role: "tool",
+                    content: toolResult,
+                });
+            }
         }
+
+        // Second call to LLM with tool results
+        const secondChatCompletion = await getGroqChatCompletion(baseMessages);
+        const secondAiMessage = secondChatCompletion.choices[0].message;
+
+        baseMessages.push({ role: 'assistant', content: secondAiMessage.content });
+        return NextResponse.json({ message: secondAiMessage.content });
     }
 
     return NextResponse.json({ message: aiMessage.content });
