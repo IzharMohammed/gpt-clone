@@ -2,7 +2,7 @@ import { tavily } from "@tavily/core";
 
 const tvly = tavily({ apiKey: process.env.TAVILY_API_KEY });
 
-export async function webSearch({ query }: { query: any }) {
+export async function webSearch({ query }: { query: string }) {
     const response = await tvly.search(query, {
         limit: 10,
     });
