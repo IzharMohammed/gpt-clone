@@ -90,14 +90,14 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
             <SidebarMenu>
                 <SidebarMenuItem>
-                    <Button className="w-full justify-start gap-2" variant="outline">
+                    <Button className="w-full justify-start gap-2 bg-[#212121] text-white border-[#212121]" variant="outline">
                         <Plus className="size-4" />
                         New Chat
                     </Button>
                 </SidebarMenuItem>
             </SidebarMenu>
         </SidebarGroup>
-        <SidebarGroup>
+        {/* <SidebarGroup>
           <SidebarGroupLabel>History</SidebarGroupLabel>
           <SidebarMenu>
             {data.history.map((item) => (
@@ -125,7 +125,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
-        </SidebarGroup>
+        </SidebarGroup> */}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>

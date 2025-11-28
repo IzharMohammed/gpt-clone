@@ -63,7 +63,7 @@ export default function ChatInterface() {
         </div>
 
         {/* Desktop Header (Optional, usually just model selector) */}
-        <div className="hidden md:flex items-center justify-between px-4 py-2 w-full max-w-3xl mx-auto">
+        <div className="hidden md:flex items-center justify-between px-4 py-2 w-full">
              <div className="flex items-center gap-2">
                 <SidebarTrigger className="hidden md:flex" />
                 <div className="text-lg font-medium text-gray-200 cursor-pointer flex items-center gap-1 hover:bg-[#2f2f2f] px-3 py-2 rounded-lg transition-colors">
